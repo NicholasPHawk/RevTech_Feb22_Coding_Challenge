@@ -1,0 +1,23 @@
+{
+  "name": "revtech_feb22_coding_challenge",
+  "version": "1.0.0",
+  "description": "RevTech_Feb22_Coding_Challenge",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NicholasPHawk/RevTech_Feb22_Coding_Challenge.git"
+  },
+  "keywords": [],
+  "author": "Nicholas Hawk <nhawk@revlocal.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NicholasPHawk/RevTech_Feb22_Coding_Challenge/issues"
+  },
+  "homepage": "https://github.com/NicholasPHawk/RevTech_Feb22_Coding_Challenge#readme",
+  "devDependencies": {
+    "jest": "^27.4.7"
+  }
+}
