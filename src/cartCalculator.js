@@ -1,24 +1,22 @@
 module.exports.computeTotalPrice = function(productsArray) {
-    //if the products in the cart could be rearranged in such a way as to maximize the savings to the customer
-    //2 groups of 4 better than a group of 5 and 3?
-    //((299 * 5) * .75) + ((299 * 3) * .90) = 1928.55
-    //((299 * 4) * .80) + ((299 * 4) * .80) = 1,913.60
-
+    if (!(productsArray instanceof Array) || productsArray.length < 1) return 0.00;
+    
     return new Number(buildProductGroupsArray(productsArray).reduce((total, current) => {
         return total += ((299 * current.length) * discountPercentage[current.length])
     }, 0).toFixed(2)).valueOf();
 };
 
-function buildProductGroupsArray(productsArray) {
-    let productGroups = [];
-
-    //Definitely an efficiency breakdown here. Perhaps rethink this approach
+function buildProductGroupsArray(productsArray, productGroups = [], completeSets = []) {
     for (let product of productsArray) {
         let foundAGroup = false;
         for (let productGroup of productGroups) {
             if (!productGroup.includes(product)) {
                 foundAGroup = true;
                 productGroup.push(product);
+                let productGroupIndex = productGroups.indexOf(productGroup);
+                if (productGroup.length === 5) {
+                    completeSets.push(productGroups.splice(productGroupIndex, productGroupIndex + 1));
+                }
                 break;
             }
         }
@@ -27,7 +25,7 @@ function buildProductGroupsArray(productsArray) {
         }
     }
 
-    return  productGroups;
+    return [...productGroups, ...completeSets];
 }
 
 const discountPercentage = {
