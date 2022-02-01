@@ -1,3 +1,3 @@
-module.exports.getCartTotal = function(cartTotalArr) {
+module.exports.computeTotalPrice = function(productsArray) {
     return 'Dummy Return Value';
 };
