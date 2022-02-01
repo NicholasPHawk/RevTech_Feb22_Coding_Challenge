@@ -12,6 +12,7 @@ module.exports.computeTotalPrice = function(productsArray) {
 function buildProductGroupsArray(productsArray) {
     let productGroups = [];
 
+    //Definitely an efficiency breakdown here. Perhaps rethink this approach
     for (let product of productsArray) {
         let foundAGroup = false;
         for (let productGroup of productGroups) {
