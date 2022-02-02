@@ -7,6 +7,13 @@ module.exports.computeTotalPrice = function(productsArray) {
 };
 
 function buildProductGroupsArray(productsArray, productGroups = [], completeSets = []) {
+    let uniqueProducts = [];
+    for (let product of availableProducts) {
+        if (productsArray.indexOf(product) !== -1 && !uniqueProducts.includes(product)) {
+            uniqueProducts.push(product);
+        }
+    }
+
     for (let product of productsArray) {
         let foundAGroup = false;
         let fullGroupIndex;
@@ -14,7 +21,7 @@ function buildProductGroupsArray(productsArray, productGroups = [], completeSets
             if (!productGroup.includes(product)) {
                 foundAGroup = true;
                 productGroup.push(product);
-                if (productGroup.length === Object.keys(discountPercentage).length) {
+                if (productGroup.length === uniqueProducts.length) {
                     fullGroupIndex = productGroups.indexOf(productGroup);
                 }
                 break;
@@ -29,10 +36,12 @@ function buildProductGroupsArray(productsArray, productGroups = [], completeSets
     return [...productGroups, ...completeSets];
 }
 
+const availableProducts = ['A', 'B', 'C', 'D', 'E'];
+
 const discountPercentage = {
     1: 1,
     2: .95,
     3: .90,
     4: .80,
     5: .75,
-}
+};

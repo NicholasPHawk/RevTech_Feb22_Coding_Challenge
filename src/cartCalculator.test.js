@@ -1,6 +1,7 @@
 const computeTotalPrice = require('./cartCalculator.js').computeTotalPrice;
 
 describe('Cart Calculator Tests', function() {
+    //#region Functionality Tests
     it('Array Is Empty', function() {
         expect(computeTotalPrice([])).toEqual(0.00);
     });
@@ -52,20 +53,27 @@ describe('Cart Calculator Tests', function() {
     it('Has A Set Of 5 Items AND A Set Of 5 Items AND A Set Of 3 Items', function() {
         expect(computeTotalPrice(['A', 'A', 'A', 'B', 'B', 'B', 'C', 'C', 'C', 'D', 'D', 'E', 'E'])).toEqual(3049.80);
     });
-    
+    //#endregion
+
+    //#region Efficiency Tests
+    it('Has 50,000 Sets Of 4 Items', function() {
+        expect(computeTotalPrice(buildCart(50000, ['A', 'B', 'C', 'D']))).toEqual(47840000.00);
+    });
+
     it('Has 50,000 Sets Of 5 Items', function() {
-        let cart = [];
-        for (let i = 0; i < 50000; i++) {
-            cart.push(...['A', 'B', 'C', 'D', 'E'])
-        }
-        expect(computeTotalPrice(cart)).toEqual(56062500.00);
+        expect(computeTotalPrice(buildCart(50000, ['A', 'B', 'C', 'D', 'E']))).toEqual(56062500.00);
     });
     
     it('Has 1,000,000 Sets Of 5 Items', function() { // I know it's overkill, just wanted to know the performance lol
-        let cart = [];
-        for (let i = 0; i < 1000000; i++) {
-            cart.push(...['A', 'B', 'C', 'D', 'E'])
-        }
-        expect(computeTotalPrice(cart)).toEqual(1121250000.00);
+        expect(computeTotalPrice(buildCart(1000000, ['A', 'B', 'C', 'D', 'E']))).toEqual(1121250000.00);
     });
+    //#endregion
 });
+
+function buildCart(howMany, productsArray) {
+    let cart = [];
+    for (let i = 0; i < howMany; i++) {
+        cart.push(...productsArray)
+    }
+    return cart;
+}
