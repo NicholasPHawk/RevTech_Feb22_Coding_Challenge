@@ -23,10 +23,10 @@ function buildProductGroupsArray(productsArray, productGroups = [], completeSets
         if (!foundAGroup) {
             productGroups.push([product]);
         } else if (fullGroupIndex) {
-           completeSets.push(productGroups.splice(fullGroupIndex, fullGroupIndex + 1));
+           completeSets.push(...productGroups.splice(fullGroupIndex, fullGroupIndex + 1));
         }
     }
-    return [...productGroups, ...completeSets.flat(1)];
+    return [...productGroups, ...completeSets];
 }
 
 const discountPercentage = {
