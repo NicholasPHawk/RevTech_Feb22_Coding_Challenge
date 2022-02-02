@@ -58,7 +58,14 @@ describe('Cart Calculator Tests', function() {
         for (let i = 0; i < 50000; i++) {
             cart.push(...['A', 'B', 'C', 'D', 'E'])
         }
-        //expect(computeTotalPrice(cart)).toEqual(56062.50);
         expect(computeTotalPrice(cart)).toEqual(56062500.00);
+    });
+    
+    it('Has 1,000,000 Sets Of 5 Items', function() { // I know it's overkill, just wanted to know the performance lol
+        let cart = [];
+        for (let i = 0; i < 1000000; i++) {
+            cart.push(...['A', 'B', 'C', 'D', 'E'])
+        }
+        expect(computeTotalPrice(cart)).toEqual(1121250000.00);
     });
 });
