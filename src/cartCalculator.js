@@ -9,23 +9,24 @@ module.exports.computeTotalPrice = function(productsArray) {
 function buildProductGroupsArray(productsArray, productGroups = [], completeSets = []) {
     for (let product of productsArray) {
         let foundAGroup = false;
+        let fullGroupIndex;
         for (let productGroup of productGroups) {
             if (!productGroup.includes(product)) {
                 foundAGroup = true;
                 productGroup.push(product);
-                let productGroupIndex = productGroups.indexOf(productGroup);
-                if (productGroup.length === 5) {
-                    completeSets.push(productGroups.splice(productGroupIndex, productGroupIndex + 1));
+                if (productGroup.length === Object.keys(discountPercentage).length) {
+                    fullGroupIndex = productGroups.indexOf(productGroup);
                 }
                 break;
             }
         }
         if (!foundAGroup) {
             productGroups.push([product]);
+        } else if (fullGroupIndex) {
+           completeSets.push(productGroups.splice(fullGroupIndex, fullGroupIndex + 1));
         }
     }
-
-    return [...productGroups, ...completeSets];
+    return [...productGroups, ...completeSets.flat(1)];
 }
 
 const discountPercentage = {

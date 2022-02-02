@@ -55,10 +55,10 @@ describe('Cart Calculator Tests', function() {
     
     it('Has 50,000 Sets Of 5 Items', function() {
         let cart = [];
-        for (let i = 0; i < 500; i++) {
+        for (let i = 0; i < 50000; i++) {
             cart.push(...['A', 'B', 'C', 'D', 'E'])
         }
-        expect(computeTotalPrice(cart)).toEqual(56062.50);
-        //expect(computeTotalPrice(cart)).toEqual(56062500.00);
+        //expect(computeTotalPrice(cart)).toEqual(56062.50);
+        expect(computeTotalPrice(cart)).toEqual(56062500.00);
     });
 });
