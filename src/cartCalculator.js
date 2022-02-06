@@ -7,12 +7,7 @@ module.exports.computeTotalPrice = function(productsArray) {
 };
 
 function buildProductGroupsArray(productsArray, productGroups = [], completeSets = []) {
-    let uniqueProducts = [];
-    for (let product of availableProducts) {
-        if (productsArray.indexOf(product) !== -1 && !uniqueProducts.includes(product)) {
-            uniqueProducts.push(product);
-        }
-    }
+    let uniqueProductsCount = getUniqueProductsCount(productsArray);
 
     for (let product of productsArray) {
         let foundAGroup = false;
@@ -21,7 +16,7 @@ function buildProductGroupsArray(productsArray, productGroups = [], completeSets
             if (!productGroup.includes(product)) {
                 foundAGroup = true;
                 productGroup.push(product);
-                if (productGroup.length === uniqueProducts.length) {
+                if (productGroup.length === uniqueProductsCount) {
                     fullGroupIndex = productGroups.indexOf(productGroup);
                 }
                 break;
@@ -34,6 +29,16 @@ function buildProductGroupsArray(productsArray, productGroups = [], completeSets
         }
     }
     return [...productGroups, ...completeSets];
+}
+
+function getUniqueProductsCount(productsArray) {
+    let uniqueProducts = [];
+    for (let product of availableProducts) {
+        if (productsArray.indexOf(product) !== -1 && !uniqueProducts.includes(product)) {
+            uniqueProducts.push(product);
+        }
+    }
+    return uniqueProducts.length;
 }
 
 const availableProducts = ['A', 'B', 'C', 'D', 'E'];
